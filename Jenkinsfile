@@ -56,7 +56,7 @@ stages{
                     try {
                         sh '''
                             ssh -o StrictHostKeyChecking=no \
-                                -i ${EC2_KEY_PRPD} \
+                                -i ${EC2_KEY_PROD} \
                                 ${EC2_USER}@${EC2_PROD_IP}
                                 
                                 echo "Pulling latest image..."
