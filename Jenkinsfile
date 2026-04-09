@@ -76,7 +76,7 @@ stages{
                                 
                                 echo "✓ Staging deployment completed"
                                 docker ps | grep ${CONTAINER_NAME}
-                            '
+                            EOF
                         '''
                     } catch (Exception e) {
                         error("Staging deployment failed: ${e.message}")
