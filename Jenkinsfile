@@ -56,24 +56,13 @@ stages{
                     try {
                         sh '''
                             ssh -o StrictHostKeyChecking=no \
-                                -i ${EC2_KEY_PROD} \
-                                ${EC2_USER}@${EC2_PROD_IP}
-                                
-                                echo "Pulling latest image..."
-                                docker pull ${DOCKER_IMAGE}:latest
-                                
-                                echo "Stopping old container..."
-                                docker stop ${CONTAINER_NAME} 2>/dev/null || true
-                                docker rm ${CONTAINER_NAME} 2>/dev/null || true
-                                
-                                echo "Starting new container..."
-                                docker run -d \
-                                    -p ${HOST_PORT}:${CONTAINER_PORT} \
-                                    --restart always \
-                                    --name ${CONTAINER_NAME} \
-                                    -e BUILD_NUMBER=${BUILD_NUMBER} \
-                                    ${DOCKER_IMAGE}:latest
-                                
+                        -i ${EC2_KEY_PROD} \
+                        ${EC2_USER}@${EC2_PROD_IP} \
+                        "docker pull ${DOCKER_IMAGE}:latest && \
+                         docker stop my-website 2>/dev/null || true && \
+                         docker rm my-website 2>/dev/null || true && \
+                         docker run -d -p 80:80 --restart always --name my-website ${DOCKER_IMAGE}:latest && \
+                         docker ps | grep my-website"                                
                                 echo "✓ Staging deployment completed"
                                 docker ps | grep ${CONTAINER_NAME} || echo "Container deployed" << EOF
                         '''
