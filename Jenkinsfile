@@ -19,7 +19,6 @@ stages{
     stage ('cloning repo'){
       steps {
         sh '''
-      rm -r static_application
       git clone https://github.com/khraj/static_application.git
       cd static_application
       git checkout main
