@@ -19,6 +19,7 @@ stages{
     stage ('cloning repo'){
       steps {
         sh '''
+      rm -r static_application
       git clone https://github.com/khraj/static_application.git
       cd static_application
       git checkout main
@@ -30,7 +31,7 @@ stages{
     stage ('Docker image build'){
       steps {
         sh '''
-        cd static-website
+        cd static_application
         docker build -t ${DOCKER_IMAGE}:${IMAGE_TAG} .
         docker tag ${DOCKER_IMAGE}:${IMAGE_TAG} ${DOCKER_IMAGE}:latest
         echo "Docker Image was built successully"
