@@ -7,7 +7,7 @@ pipeline{
     DOCKER_IMAGE = "${DOCKER_CREDS_USR}/static-website"
 
     // EC2 details
-    EC2_PROD_IP = "34.229.74.149"
+    EC2_PROD_IP = "52.200.9.155"
     EC2_USER = "ubuntu"
     EC2_KEY_PROD = credentials('ec2-prod-key')
 
